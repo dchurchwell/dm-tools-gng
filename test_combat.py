@@ -62,7 +62,10 @@ class TestInterface(dm_engine.Interface):
 
 
 for fname in ['monster_data/test_monster.json',
-              'player_data/sd.json',]:
+              'player_data/test_ari.json',
+              'player_data/test_keth.json',
+              'player_data/test_lyan.json',
+              'player_data/test_kiir.json',]:
     if os.path.exists(fname):
         os.remove(fname)
 

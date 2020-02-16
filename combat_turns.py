@@ -9,7 +9,7 @@ class Combat:
     def __init__(self, interface):
         self.interface = interface
 
-    def set_combatants(self, player_file = "players.txt"):
+    def set_combatants(self, player_file = "players.txt" ):
         # Get player initiative scores
         combatants = players.load_player_data(player_file)
         print("Enter initiative scores for the players: ")

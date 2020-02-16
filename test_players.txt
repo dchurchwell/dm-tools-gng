@@ -1,4 +1,4 @@
-Ari Strongbow,test_ari.json,Sean
-Keth Silverson,test_keth.json,Bri
-Lyan Amaranthia,test_lyan.json,Brooke
-Kiir Bravan,test_kiir.json,Beau
+Ari Strongbow,player_data/test_ari.json,Sean
+Keth Silverson,player_data/test_keth.json,Bri
+Lyan Amaranthia,player_data/test_lyan.json,Brooke
+Kiir Bravan,player_data/test_kiir.json,Beau
