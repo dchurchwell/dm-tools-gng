@@ -6,7 +6,7 @@ def d(n, skill=0, adv=0):
         print("Advantage not implemented")
     return random.randint(1, n) + skill
 
-def roll(string):
+def roll(string, crit=False):
     """Roll a string of dice
     
     Arguments:
@@ -52,22 +52,24 @@ def roll(string):
             # Loop through damage types
             for i in range(len(split)):
                 if i % 2 == 0 and i < len(split)-1:
-                    type_dict[split[i+1]] = roll(split[i])
+                    type_dict[split[i+1]] = roll(split[i], crit)
             return type_dict
 
 
         elif '+' in string:
             for die in string.split('+'):
-                total += roll(die)
+                total += roll(die, crit)
         elif '-' in string:
-            total += roll(string.split('-')[0])
+            total += roll(string.split('-')[0], crit)
             for die in string.split('-')[1:]:
-                total -= roll(die)
+                total -= roll(die, crit)
         elif 'd' in string:
             num, die = string.split('d')
             die = int(die)
             for i in range(int(num)):
                 total += d(die)
+                if crit:
+                    total += d(die)
         else:
             total += int(string)
     except Exception as e:

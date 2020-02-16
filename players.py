@@ -2,11 +2,11 @@ from mobs import *
 import csv
 
 class Player(Mob):
-    def make_check():
+    def make_check(self):
         print("Not yet implemented")
 
 
-def load_player_data(self, filename='players.txt'):
+def load_player_data(filename='players.txt'):
     players = []
     # Get player data from files
     with open(filename) as playerfile:

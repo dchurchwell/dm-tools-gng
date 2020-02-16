@@ -1,0 +1,14 @@
+Headers:	Type:	Cost (gp)	AC	DexMax	StrReq	Stealth	Weight(lb)	Metal
+None	Light	0	10	100	0	-	0	-
+Padded	Light	5	11	100	0	Disadv.	8	-
+Leather	Light	10	11	100	0	-	10	-
+Studded Leather	Light	45	12	100	0	-	13	-
+Hide	Medium	10	12	2	0	-	12	-
+Chain Shirt	Medium	50	13	2	0	-	20	Metal
+Scale Mail	Medium	50	14	2	0	Disadv.	45	Metal
+Breastplate	Medium	400	14	2	0	Disadv.	20	Metal
+Half Plate	Medium	750	15	2	0	Disadv.	40	Metal
+Ring Mail	Heavy	30	14	-	0	Disadv.	40	Metal
+Chain Mail	Heavy	75	16	-	13	Disadv.	55	Metal
+Splint	Heavy	200	17	-	15	Disadv.	60	Metal
+Plate	Heavy	1500	18	-	15	Disadv.	65	Metal

@@ -1,13 +1,19 @@
 from dice import *
 import json
+import actions
 
 class Mob():
-    def __init__(self, name, interface=None, filename=None, player_name='DM'):
+    def __init__(self, name, interface=None, filename=None, player_name='DM', combat=None):
+        self.combat=combat
         self.attributes = {}
         self.player = player_name
         self.interface = interface
+
         self.name = name
+        self.text = self.name
         self.filename = filename
+
+        self.actions = []
 
         # Set filename based on name
         if filename == None:
@@ -16,6 +22,7 @@ class Mob():
         # Load from file if exists
         if not filename == None:
             self.load_from_file(filename=None)
+    
 
     def load_from_file(self, filename):
         """Loads mob data from json file
@@ -42,10 +49,20 @@ class Mob():
             filename = self.filename
         with open(filename, 'w+') as f:
             f.write(json.dumps({
-                'attributes': self.attributes
+                'attributes': self.attributes,
+                #'actions': self.actions
             }))
     
-    def get_attribute(self, attribute_name):
+    def get(self, attribute_name):
+        """Returns the score for an attribute, such as ability scores or skill checks.
+            Will ask for input if no score is found.
+        
+        Arguments:
+            attribute_name {string} -- The name of the attribute to get
+        
+        Returns:
+            int -- The score of the attribute
+        """        
         if attribute_name in self.attributes:
             return self.attributes[attribute_name]
         else:
@@ -57,9 +74,28 @@ class Mob():
                 self.attributes[attribute_name] = int(val)
                 self.save_to_file()
                 return int(val)
+    
+    def take_dmg(self, dmg=0):
+        try:
+            dmg = int(dmg)
+            self.attributes['HP'] = max(self.get('HP') - dmg, 0)
+            self.interface.tell(f"{self.name} is reduced to {self.get('HP')} hit points!")
+        except TypeError:
+            # TODO: Implement resistances and immunities
+            for dmgType in dmg:
+                self.take_dmg(dmg[dmgType])
 
     def do_action(self):
-        print("Actions not yet implemented")
+        if len(self.actions) == 0:
+            self.actions.append(actions.Action("Do nothing"))
+            if self.player == 'DM':
+                self.actions.append(actions.CreateAttack(self))
+            else:
+                self.actions.append(actions.PlayerAttack(self))
+
+        action = self.interface.DM_make_selection(self.actions, "Select an action for " + self.name)
+        self.interface.tell(action())
+
         
     def do_help_action(self):
         print("Help action not yet implemented")
@@ -73,5 +109,6 @@ class Mob():
     def give_inspiration(self):
         print("Not yet implemented")
     
-    def roll_initiative(self):
-        self.current_initiative = d(20) + self.get_attribute("Initiative")
+    def roll_initiative(self, combat):
+        self.current_initiative = d(20) + self.get("Initiative")
+        self.combat = combat

@@ -15,6 +15,7 @@ class Combat:
         print("Enter initiative scores for the players: ")
         for player in combatants:
             player.interface = self.interface
+            player.combat = self
             player.current_initiative = int(self.interface.ask_DM(player.name + ':'))
 
         print("Add monsters:  (Enter X when done)")
@@ -34,7 +35,7 @@ class Combat:
                 else:
                     name_num = mobname
                 this_mob = mobs.Mob(name_num, self.interface, filename)
-                this_mob.roll_initiative()
+                this_mob.roll_initiative(self)
                 combatants.append(this_mob)
                 
             # Sort combatants
@@ -51,13 +52,14 @@ class Combat:
         i = 0
         while True:
             # Output who's going next
-            self.interface.tell(f"It's {self.combatants[i].name}'s turn!")
+            combatant = self.combatants[i]
+            self.interface.tell(f"It's {combatant.name}'s turn!")
 
             # Have them act (Move, Action, Bonus Action, Free Action)
-            self.interface.tell("No actions implemented")
+            combatant.do_action()
 
             # Confirm end of turn
-            self.interface.ask_DM()
+            #self.interface.ask_DM()
 
             # Move to the next person
             i += 1

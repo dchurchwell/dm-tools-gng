@@ -26,4 +26,12 @@ class Interface():
     def update_action_suboptions(self):
         print("Not yet implemented")
 
-
+    def DM_make_selection(self, items, text=''):
+        print(text)
+        for i, item in enumerate(items):
+            if type(item) == type(""): 
+                print(f"[{i}]: {item}")
+            else:
+                print(f"[{i}]: {item.text}")
+        selection = int(input('Make a selection: '))
+        return items[selection]
